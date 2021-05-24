@@ -1,21 +1,23 @@
-# 开发
-
 如果没安装parcel，先安装：
 ```
 yarn global add parcel-bundler
 ```
-开发阶段输入：
+
+## 1. 开发阶段
+
+输入下面代码，打开 http://localhost:1234 预览
 ```
 parcel src/index.html
 ```
 
-## 创建 build 命令
+## 2. 发布阶段
 
-1. 先创建一个脚本
+### 2.1 用脚本创建 build 命令
 
 ```
 yarn init -y
 ```
+
 输入上面代码后，在package.json文件中添加下面代码：
 ```
 "scripts": {
@@ -23,9 +25,9 @@ yarn init -y
   },
 ```
 
-2. build 命令
+### 2.2 使用 build 命令
 
-每次修改完代码，在终端输入：
+每次修改完代码要发布时，输入下面代码：
 ```
 yarn build
 ```
