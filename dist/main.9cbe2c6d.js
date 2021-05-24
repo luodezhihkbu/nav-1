@@ -121,28 +121,28 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var $lastLi = $('.last');
 var x = localStorage.getItem('x'); // 获取本地储存的数据。
 
-var xObject = JSON.parse(x); // 将字符串类型的数据转化成对象。
+var xObject = JSON.parse(x); // 将字符串类型的数据转化成对象类型。
+// hashMap 为含有哈希表的数组；
+// xObject 不存在时，执行后面的语句。 xObject 存在时，执行 xObject 。
 
-var hashMap = xObject || [// hashMap为含有哈希表的数组。
-// xObject不存在时，执行后面的语句。xObject存在时，执行xObject。
-{
+var hashMap = xObject || [{
   logo: 'A',
   url: 'https://www.acfun.cn'
 }, {
   logo: 'B',
   url: 'https://www.bilibili.com'
-}];
+}]; // 简化 url ，删除 url 里的 'https://'，'http://'，'www.' 和以 / 开头的内容。
 
 var simplifyUrl = function simplifyUrl(url) {
-  return url.replace('https://', '').replace('http://', '').replace('www.', '').replace(/\/.*/, ''); // 用正则删除以/开头的内容（\为转义符号）
-}; // 简化url
-
+  return url.replace('https://', '').replace('http://', '').replace('www.', '').replace(/\/.*/, ''); // 用正则删除（最外层的两个 / 为正则符号；\ 为转义符号，避免和正则符号混淆；/.* 表示以 / 开头的内容）
+};
 
 var render = function render() {
-  $('li:not(.last)').remove(); // 每次渲染hashMap之前，把除最后一个list外的list都清除。否则，之前的list会重复渲染。
-
+  // 每次渲染 hashMap 之前，把除最后一个 list 外的 list 都清除。否则，之前的 list 会重复渲染。
+  $('li:not(.last)').remove();
   hashMap.forEach(function (node, index) {
-    var $li = $("<li>\n            <div class=\"site\">\n                <div class=\"logo\">".concat(node.logo, "</div>\n                <div class=\"link\">").concat(simplifyUrl(node.url), "</div>\n                <div class=\"close\">\n                    <svg class=\"icon\">\n                        <use xlink:href=\"#icon-close\"></use>\n                    </svg>\n                </div>\n            </div> \n        </li>")).insertBefore($lastLi); // 每次将新增的网址list插入到“新增网站”的前面。
+    // 每次将新增的网址 list 插入到“新增网站”的前面。
+    var $li = $("<li>\n            <div class=\"site\">\n                <div class=\"logo\">".concat(node.logo, "</div>\n                <div class=\"link\">").concat(simplifyUrl(node.url), "</div>\n                <div class=\"close\">\n                    <svg class=\"icon\">\n                        <use xlink:href=\"#icon-close\"></use>\n                    </svg>\n                </div>\n            </div> \n        </li>")).insertBefore($lastLi); // 当点击 list 里的 close 时，阻止冒泡，即阻止跳转链接。并且删除这个list。
 
     $li.on('click', function () {
       window.open(node.url);
@@ -151,43 +151,45 @@ var render = function render() {
       e.stopPropagation();
       hashMap.splice(index, 1);
       render();
-    }); // 当点击list里的close时，阻止冒泡。并且删除这个list。
+    });
   });
 };
 
-render(); // 初始化前面两个网址list。
+render(); // 初始化渲染。
+// 监听 .addButton 的 click 事件
 
 $('.addButton').on('click', function () {
-  var url = window.prompt('请输入要添加的网址'); // 当用户点击时，弹出对话框提示上述文字内容，然后将用户在对话框里输入的网址赋值给url。
+  // 当用户点击时，弹出对话框提示下述文字内容，然后将用户在对话框里输入的网址赋值给 url 。
+  var url = window.prompt('请输入要添加的网址'); // 如果用户输入的网址的开头不含 http ，则给网址加上 https:// 后再赋值给url。
 
   if (url.indexOf('http') != 0) {
-    // 如果用户输入的网址开头不含http，则给网址加上 https:// 后再赋值给url。
     url = 'https://' + url;
-  }
+  } // 把新增的网址 list 放进 hashMap 里。 
+
 
   hashMap.push({
     logo: simplifyUrl(url)[0].toUpperCase(),
+    // toUpperCase 表示转化成大写字母
     url: url
-  }); // 把新增的网址list放进hashMap里。 
-
+  });
   render();
-});
+}); // 用户离开当前页面时，调用下面的函数。
 
 window.onbeforeunload = function () {
-  // 用户离开当前页面时，调用后面的函数。
-  var string = JSON.stringify(hashMap); // 把对象类型的数据转化成字符串。
+  var string = JSON.stringify(hashMap); // 把对象类型的数据转化成字符串类型。
 
   localStorage.setItem('x', string); // 把数据储存在本地。
-};
+}; // 监听键盘事件，当用户按键盘的某个字母，打开对应字母的网址。
+
 
 $(document).on('keypress', function (e) {
-  var key = e.key; // 为 key = e.key 的简写。
+  var key = e.key; // 解构赋值，表示 key = e.key 的简写；获取按键盘的字母。
 
   for (var i = 0; i < hashMap.length; i++) {
     if (hashMap[i].logo.toLowerCase() === key) {
       window.open(hashMap[i].url);
     }
   }
-}); // 监听键盘事件，当用户按键盘的某个字母，打开对应字母的网址。
+});
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=main.e17a147d.js.map
+//# sourceMappingURL=main.9cbe2c6d.js.map

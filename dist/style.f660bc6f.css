@@ -10,8 +10,8 @@ body{
 }
 
 .globalHeader{
-    margin: 20px; 
-    /* 未知宽度元素居中的方法是，把左右的margin设置为同一个值。 */  
+    /* 未知宽度的元素水平居中的方法是，把左右的 margin 设置为同一个值。 */  
+    margin: 20px;  
 }
 @media (min-width: 500px) {
     .globalHeader{
@@ -22,30 +22,27 @@ body{
     display: flex;
     justify-content: space-between;
 }
+/* 媒体查询：当屏幕宽度大于等于500px（即PC端）时，把 searchForm 的下面样式合并到原有的样式中。 */
 @media (min-width: 500px) {
     .searchForm{
         max-width: 400px;
+        /* 已知宽度的元素水平居中的方法是，把 margin 的左右宽度设为 auto 来居中。 */
         margin-left: auto;
         margin-right: auto;
-        /* 当宽度固定时，把margin的左右宽度设为auto来居中。 */
     }
 }
-/* 当屏幕宽度大于等于500px时，把searchForm的上述样式增添到原有的样式中。 */
 .searchForm > input{
     width: 100%;
     margin-right: 10px;
     padding: 0 10px;
     height: 40px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    /* 边框变成圆角 */
+    border-radius: 4px; /* 边框变成圆角 */
 }
 .searchForm > button{
-    white-space: nowrap;
-    /* button里的内容不换行 */
+    white-space: nowrap; /* button里的内容不换行 */
     padding: 0 28px;
-    border: none;
-    /* 把默认的边框去掉 */
+    border: none; /* 把默认的边框去掉 */
     border-radius: 4px;
     background: #067ABB;
     color: white;
@@ -63,6 +60,7 @@ body{
     margin: 20px; 
     justify-content: space-between;
 }
+/* PC 端用负 margin 来做平均布局 */
 @media (min-width: 500px) {
     .siteList{
         margin-left: 0;
@@ -107,12 +105,12 @@ body{
     position: absolute;
     right: 10px;
     top: 5px;
-    display: none; /* 隐藏关闭图标 */
+    display: none; /* 默认隐藏关闭图标 */
     cursor: default; /* 把鼠标的样式变成默认形状 */
 }
+/* 当鼠标浮到 site 时，显示关闭图标 */
 .siteList .site:hover > .close{
-    display: block; 
-    /* 当鼠标浮到site时，显示关闭图标 */
+    display: block;   
 }
 .siteList .addButton{
     border: 1px solid red;
@@ -142,4 +140,4 @@ body{
     margin-top: 4px;
 }
 
-/*# sourceMappingURL=style.34845e36.css.map */
+/*# sourceMappingURL=style.f660bc6f.css.map */
