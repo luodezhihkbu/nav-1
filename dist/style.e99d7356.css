@@ -96,6 +96,7 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 64px;
+    color: #067ABB;
 }
 .siteList .site > .link{
     font-size: 14px;
@@ -113,7 +114,6 @@ body{
     display: block;   
 }
 .siteList .addButton{
-    border: 1px solid red;
     width: 160px;
     display: flex;
     justify-content: center;
@@ -140,4 +140,4 @@ body{
     margin-top: 4px;
 }
 
-/*# sourceMappingURL=style.f660bc6f.css.map */
+/*# sourceMappingURL=style.e99d7356.css.map */
